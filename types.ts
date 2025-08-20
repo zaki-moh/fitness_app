@@ -71,3 +71,9 @@ export type AuthContextType = {
   ) => Promise<{success: boolean, msg ?: string}>;
   updateUserData: (userId: string) => Promise<void>;
 }
+
+export type HeaderProps = {
+  title?: string,
+  style?: ViewStyle,
+  leftIcon?: ReactNode
+}

@@ -8,7 +8,7 @@ import { signOut } from 'firebase/auth'
 import { useAuth } from '@/context/authContext'
 import ScreenWrapper from '@/components/ScreenWrapper'
 
-const dashboard = () => {
+const Dashboard = () => {
     const {user} = useAuth();
     
     const handleLogout = async () => {
@@ -27,6 +27,6 @@ const dashboard = () => {
   );
 };
 
-export default dashboard
+export default Dashboard
 
 const styles = StyleSheet.create({})
