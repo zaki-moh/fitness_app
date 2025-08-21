@@ -70,10 +70,23 @@ export type AuthContextType = {
     name: string
   ) => Promise<{success: boolean, msg ?: string}>;
   updateUserData: (userId: string) => Promise<void>;
-}
+};
 
 export type HeaderProps = {
   title?: string,
   style?: ViewStyle,
   leftIcon?: ReactNode
-}
+};
+
+export type AccountOptionType = {
+  title?: string,
+  icon: React.ReactNode,
+  bgColor: string,
+  routeName?: any
+};
+
+export type ModalWrapperProps = {
+  style?: ViewStyle,
+  children: React.ReactNode,
+  bgColor?: string
+};
