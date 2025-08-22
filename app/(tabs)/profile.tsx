@@ -29,7 +29,7 @@ const Profile = () => {
           />
         ),
         bgColor: colors.Secondary,
-        routeName: "(modals)/profileModal"
+        routeName: "(modal)/profileModal"
       },
       {
         title: "Settings",
@@ -41,7 +41,7 @@ const Profile = () => {
           />
         ),
         bgColor: "#4CAF50",
-        routeName: "(modals)/profileModal"
+        routeName: "(modal)/profileModal"
       },
       {
         title: "Privacy policy",
@@ -65,7 +65,7 @@ const Profile = () => {
           />
         ),
         bgColor: "#E53935",
-        routeName: "(modals)/profileModal"
+        routeName: "(modal)/profileModal"
       },
   ]
 

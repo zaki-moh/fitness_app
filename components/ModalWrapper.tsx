@@ -8,7 +8,7 @@ const isIos = Platform.OS == 'ios';
 const ModalWrapper = ({
         style,
         children,
-        bgColor = colors.primary,
+        bgColor = colors.Background,
     }: ModalWrapperProps) => {
   return (
     <View style={[styles.container, {backgroundColor: bgColor}, style && style]}>

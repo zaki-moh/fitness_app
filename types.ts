@@ -90,3 +90,7 @@ export type ModalWrapperProps = {
   children: React.ReactNode,
   bgColor?: string
 };
+
+export type UserDataType = {
+  name: string
+}
