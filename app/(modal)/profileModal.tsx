@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, Alert } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ModalWrapper from '@/components/ModalWrapper'
 import { colors, spacingX, spacingY } from '@/constants/theme'
 import Header from '@/components/Header'
@@ -11,21 +11,42 @@ import Input from '@/components/Input'
 import { UserDataType } from '@/types'
 import Button from '@/components/Button'
 import { useAuth } from '@/context/authContext'
+import { useRoute } from '@react-navigation/native'
+import { useRouter } from 'expo-router'
+import { updateUser } from '@/services/userService'
 
 const ProfileModal = () => {
+  const router = useRouter();
   const [userData, setUserData] = useState<UserDataType>({
       name: ""
     });
 
-  const {auth} = useAuth();
+  const { user, updateUserData} = useAuth();
   
-  const [loading, isLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setUserData({
+      name: user?.name || ""
+    });
+  }, [user]);
 
   const onSubmit = async () => {
     let {name} = userData;
     if(!name.trim()) {
       Alert.alert("User", "Please fill all fields");
       return;
+    }
+
+    setLoading(true);
+    const res = await updateUser(user?.uid as string, userData);
+
+    if(res.success) {
+      updateUserData(user?.uid as string);
+      router.back();
+    }
+    else {
+      Alert.alert("User", res.msg);
     }
   }
   return (
