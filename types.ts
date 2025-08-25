@@ -75,7 +75,8 @@ export type AuthContextType = {
 export type HeaderProps = {
   title?: string,
   style?: ViewStyle,
-  leftIcon?: ReactNode
+  leftIcon?: ReactNode,
+  rightIcon?: ReactNode
 };
 
 export type AccountOptionType = {
@@ -99,4 +100,9 @@ export type ResponseType = {
   success: boolean;
   data?: any;
   msg?: string;
+};
+
+export type MealType = {
+  calories: number | null;
+  type: string;
 };

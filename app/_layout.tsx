@@ -8,6 +8,9 @@ const StackLayout = () => {
     <Stack.Screen name="(modal)/profileModal" 
     options = {{presentation: "modal"}}
     />
+    <Stack.Screen name="(modal)/diaryModal" 
+    options = {{presentation: "modal"}}
+    />
   </Stack>;
 };
 

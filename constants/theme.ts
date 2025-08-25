@@ -7,7 +7,8 @@ export const colors = {
     Background: '#131416',
     Text: '#E0E0E0',
     subText: '#CCCCCC',
-    tabbar:"#1E1F23"
+    tabbar:"#25262A",
+    darkGrey: "#1B1C1F"
 }
 
 export const spacingX = {
