@@ -13,7 +13,7 @@ import { MealType } from '@/types'
 import * as Icons from "phosphor-react-native"
 import { Dropdown } from 'react-native-element-dropdown';
 import { useRouter } from 'expo-router'
-
+import { useMealStore } from "../../store/mealStore";
 
 
 const DiaryModal = () => {
@@ -23,12 +23,12 @@ const DiaryModal = () => {
     });
     const router = useRouter();
     const mealOptions = ["Breakfast", "Lunch", "Dinner", "Snack"];
-
+    const {calorieCount, setCalorieCount, decrementCalorieCount, clearCalorieCount } = useMealStore();
     
     const [calorieInput, setCalorieInput] = useState("");
     const [mealType, setMealType] = useState("");
-    const [showDropdown, setShowDropdown] = useState(false);
-    const [loading, setLoading] = useState("");
+    //const [showDropdown, setShowDropdown] = useState(false);
+    //const [loading, setLoading] = useState("");
 
     const onSubmit = async () => {
         if(mealType == "" && calorieInput == "") {
@@ -41,7 +41,8 @@ const DiaryModal = () => {
             Alert.alert("User", "Please select a meal type");
         }
         else {
-            router.back()
+            decrementCalorieCount(calorieInput);
+            router.back();
         }
 
     }
@@ -68,28 +69,10 @@ const DiaryModal = () => {
               }}>
               Log Meal
             </Typo>
-            {/* <View style={styles.dropDown}> 
-                <TouchableOpacity  onPress={() => setShowDropdown(!showDropdown)}>
-                    <Typo size={8} color={colors.Secondary} fontWeight={"400"}>
-                        {mealType}
-                    </Typo>
-                </TouchableOpacity>
-            </View>
-            {showDropdown && (<View style={styles.dropDown}>
-              {mealOptions.map((meal) =>  
-                <TouchableOpacity key={meal} style={styles.dropDown} 
-                onPress={() => {setMealType(meal); setShowDropdown(false)}}
-                >
-                    <Typo size={8}>
-                        {meal}
-                    </Typo>
-                </TouchableOpacity>)}
-            </View>)} */}
-
             <View style={styles.dropdowncontainer}>
                 <Dropdown
                   style={{
-                    width: 140,          // makes dropdown wider
+                    width: 140,          
                     height: 30,
                     borderColor: "white",
                     borderWidth: 1,
@@ -103,7 +86,7 @@ const DiaryModal = () => {
                     fontWeight: "700"
                 }}
                 selectedTextStyle={{
-                    fontSize: 18,        // smaller selected value text
+                    fontSize: 18,        
                     fontWeight: "700",
                     color: colors.Secondary
                 }}
@@ -116,7 +99,6 @@ const DiaryModal = () => {
                 onChange={item => setMealType(item.value)}
                 />
             </View>
-
             <Input
               placeholder="Enter calorie amount"
               value={calorieInput}       

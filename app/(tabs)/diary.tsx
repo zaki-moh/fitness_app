@@ -5,20 +5,24 @@ import Typo from '@/components/Typo'
 import { colors } from '@/constants/theme'
 import * as Icons from "phosphor-react-native";
 import { useRouter } from 'expo-router'
+import { useMealStore } from "../../store/mealStore";
+
 
 
 const Diary = () => {
   const router = useRouter();
+  const {calorieCount, setCalorieCount, decrementCaloriCount, clearCalorieCount } = useMealStore();
+
 
   return (
     <ScreenWrapper style={{backgroundColor: colors.primary}}>
       <View style={styles.container}>
         <View  style={styles.calorieCount}>
           <Typo fontWeight={"500"} size={25}>        
-            2,800
+           {calorieCount.toLocaleString('en-US')}
           </Typo>
           <Typo fontWeight={"400"} size={6.8} color={"#A9B2BC"}>
-            remaining
+            calories remaining
           </Typo>
         </View>
         <View style={styles.diary}>

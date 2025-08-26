@@ -106,3 +106,7 @@ export type MealType = {
   calories: number | null;
   type: string;
 };
+
+export type CalorieType = {
+  calories: number | null;
+};
