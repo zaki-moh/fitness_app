@@ -112,6 +112,7 @@ export type CalorieType = {
 };
 
 export type FoodLogProps = {
+  style?: ViewStyle,
   mealType: string,
   calorieAmount: number,
 }

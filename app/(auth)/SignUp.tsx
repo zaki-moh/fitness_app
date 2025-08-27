@@ -36,7 +36,7 @@ const SignUp = () => {
           Alert.alert("Sign up", res.msg);
         }
         else {
-            router.replace("/setDailyCalories");
+            router.push("/(auth)/setDailyCalories");
         }
     };
     const router = useRouter();

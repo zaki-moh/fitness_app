@@ -24,7 +24,7 @@ const Dashboard = () => {
             </Typo> 
         </Button>
         <View style={{paddingTop: 50}}>
-          <Foodlog calorieAmount={200} mealType='BreakFast'/>
+          <Foodlog calorieAmount={200} mealType="Breakfast"/>
         </View>
       </Typo>
     </ScreenWrapper>

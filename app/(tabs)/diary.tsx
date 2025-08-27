@@ -6,6 +6,7 @@ import { colors } from '@/constants/theme'
 import * as Icons from "phosphor-react-native";
 import { useRouter } from 'expo-router'
 import { useMealStore } from "../../store/mealStore";
+import Foodlog from '@/components/Foodlog'
 
 
 
@@ -19,7 +20,7 @@ const Diary = () => {
       <View style={styles.container}>
         <View  style={styles.calorieCount}>
           <Typo fontWeight={"500"} size={25}>        
-           {calorieCount.toLocaleString('en-US')}
+           {calorieCount}
           </Typo>
           <Typo fontWeight={"400"} size={6.8} color={"#A9B2BC"}>
             calories remaining
@@ -38,6 +39,9 @@ const Diary = () => {
             size={40}
             />
           </TouchableOpacity>
+          <View style={{paddingTop: 60, alignSelf: "center"}}>            
+            <Foodlog calorieAmount={200} mealType="Breakfast" />
+          </View>
         </View>
     
       </View>
