@@ -1,18 +1,17 @@
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import ScreenWrapper from '@/components/ScreenWrapper'
-import Typo from '@/components/Typo'
-import Input from '@/components/Input'
-import * as Icons from "phosphor-react-native"
-import { useRoute } from '@react-navigation/native'
-import { useRouter } from 'expo-router'
-import { useMealStore } from "../../store/mealStore";
-import { CalorieType } from '@/types'
+import ModalWrapper from '@/components/ModalWrapper'
+import { useRouter } from 'expo-router';
+import { useMealStore } from '@/store/mealStore';
+import * as Icons from 'phosphor-react-native'
+import Typo from '@/components/Typo';
+import Input from '@/components/Input';
+import BackButton from '@/components/BackButton';
+import Header from '@/components/Header';
+import { colors } from '@/constants/theme';
 
 
-
-const SetDailyCalories = () => {
-
+const SettingModal = () => {
     const [calorieAmount, setCalorieAmount] = useState("");
     const {calorieCount, setCalorieCount, decrementCalorieCount, clearCalorieCount } = useMealStore();
     const router = useRouter();
@@ -23,18 +22,20 @@ const SetDailyCalories = () => {
         }
         else {
             setCalorieCount(calorieAmount);
-            router.push("../(tabs)/Dashboard");
+            router.back();
         }
     }
-
   return (
-    <ScreenWrapper>
-      <View> 
-        <TouchableOpacity onPress={onPress}>
-            <Icons.CheckIcon style={styles.button} color="white" size={35}/>
-        </TouchableOpacity>
+    <ModalWrapper>
+      <View style={{paddingHorizontal: 10, paddingBottom: 8}}> 
+        <Header title= "" leftIcon={<BackButton iconSize={34}/>} rightIcon={
+            <TouchableOpacity onPress={onPress}>
+                <Icons.CheckIcon size={34} color={colors.Text}/>
+            </TouchableOpacity>
+        }
+        />
       </View>
-      <Typo size={12} style={styles.header} fontWeight={"bold"}>What is Calorie Goal?</Typo>
+      <Typo size={12} style={styles.header} fontWeight={"bold"}>Update Calorie Goal?</Typo>
       <View style={styles.input}>
         <Input 
             placeholder='Enter calorie amount'
@@ -44,12 +45,12 @@ const SetDailyCalories = () => {
                 setCalorieAmount(amount)
             }}
         />
-      </View> 
-    </ScreenWrapper>
+      </View>
+    </ModalWrapper>
   )
 }
 
-export default SetDailyCalories
+export default SettingModal
 
 const styles = StyleSheet.create({
     container: {

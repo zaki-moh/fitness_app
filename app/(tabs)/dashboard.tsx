@@ -7,6 +7,7 @@ import Button from '@/components/Button'
 import { signOut } from 'firebase/auth'
 import { useAuth } from '@/context/authContext'
 import ScreenWrapper from '@/components/ScreenWrapper'
+import Foodlog from '@/components/Foodlog'
 
 const Dashboard = () => {
     const {user} = useAuth();
@@ -22,6 +23,9 @@ const Dashboard = () => {
                 Logout
             </Typo> 
         </Button>
+        <View style={{paddingTop: 50}}>
+          <Foodlog calorieAmount={200} mealType='BreakFast'/>
+        </View>
       </Typo>
     </ScreenWrapper>
   );

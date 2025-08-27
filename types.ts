@@ -110,3 +110,8 @@ export type MealType = {
 export type CalorieType = {
   calories: number | null;
 };
+
+export type FoodLogProps = {
+  mealType: string,
+  calorieAmount: number,
+}

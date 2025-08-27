@@ -41,7 +41,7 @@ const Profile = () => {
           />
         ),
         bgColor: "#4CAF50",
-        routeName: "(modal)/profileModal"
+        routeName: "(modal)/settingModal"
       },
       {
         title: "Privacy policy",

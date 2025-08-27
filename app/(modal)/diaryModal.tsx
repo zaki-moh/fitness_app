@@ -61,7 +61,7 @@ const DiaryModal = () => {
         style={{marginBottom: 8}}
         />
           <View style={styles.avatarContainer}>
-            <Typo size={9.5} fontWeight={"bold"} style={{
+            <Typo size={11} fontWeight={"bold"} style={{
               textAlign: "left",
               //marginTop: 1, 
               alignSelf: "flex-start",
@@ -72,16 +72,16 @@ const DiaryModal = () => {
             <View style={styles.dropdowncontainer}>
                 <Dropdown
                   style={{
-                    width: 140,          
+                    width: 145,          
                     height: 30,
                     borderColor: "white",
-                    borderWidth: 1,
+                    borderWidth: 0,
                     borderRadius: 8,
                     paddingLeft: 10,
                     paddingRight: 5,
                 }}
                 placeholderStyle={{
-                    fontSize: 18,        
+                    fontSize: 18.5,        
                     color: colors.Secondary,
                     fontWeight: "700"
                 }}
@@ -123,23 +123,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacingY._7
  },
   avatarContainer: {
-    marginTop: 50,
+    marginTop: 60,
     alignItems: "center",
     gap: 8
     //position: "relative"
   },
 
-    dropDownMenu: {
-    position: "absolute",
-    top: "100%", 
-    left: 0,
-    backgroundColor: "white",
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 6,
-    zIndex: 1000,
-    padding: 8,
-    },
 
     dropdowncontainer: {
     flex: 1,
@@ -147,12 +136,5 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     //marginBottom: 12
     bottom: 14
-    },
-    dropdown: {
-    height: 50,
-    borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 8,
     },
 })
