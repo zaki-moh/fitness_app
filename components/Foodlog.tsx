@@ -30,8 +30,8 @@ const Foodlog = ({
   return (
       <TouchableOpacity style={styles.container}>
         {renderMealIcon(mealType)}
-        <Typo color={"white"} size={10} fontWeight={"bold"}>  {mealType}: </Typo>
-        <Typo fontWeight={"bold"} size={10} style={{paddingLeft: 175}}>{calorieAmount}</Typo>
+        <Typo color={"white"} size={9} fontWeight={"bold"}>  {mealType}: </Typo>
+        <Typo fontWeight={"bold"} size={9} style={{paddingLeft: 195}}>{calorieAmount}</Typo>
       </TouchableOpacity>
   )
 }
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         borderRadius: radius._3,
         borderCurve: "continuous",
-        height: verticalScale(28),
+        height: verticalScale(22),
         width: screenWidth,
         backgroundColor: colors.tabbar,
         flexDirection: "row",

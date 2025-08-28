@@ -35,9 +35,6 @@ const SignUp = () => {
         if(!res.success) {
           Alert.alert("Sign up", res.msg);
         }
-        else {
-            router.push("/(auth)/setDailyCalories");
-        }
     };
     const router = useRouter();
 

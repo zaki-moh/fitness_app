@@ -55,19 +55,17 @@ export default SettingModal
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "space-around"
     },
     header: {
-        marginTop: 45,
-        alignSelf: "flex-start",
-        marginLeft: 40
+        marginTop: 40,
+        alignSelf: "center",
     },
     input: {
         marginTop: 20,
         alignSelf: "center"
     },
     button: {
-        alignSelf: "flex-end",
+        alignSelf: "center",
         marginTop: 10,
         marginRight: 25
     }
