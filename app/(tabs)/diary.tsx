@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import ScreenWrapper from '@/components/ScreenWrapper'
 import Typo from '@/components/Typo'
 import { colors } from '@/constants/theme'
@@ -11,6 +11,13 @@ import Foodlog from '@/components/Foodlog'
 const Diary = () => {
   const router = useRouter();
   const { calorieCount } = useMealStore();
+
+  const [mealLoogs, setMealLogs] = useState({
+    Breakfast: [],
+    Lunch: [],
+    Dinner: [],
+    Snack: []
+  })
   
   const meals = ["Breakfast", "Lunch", "Dinner", "Snack"];
 
@@ -34,7 +41,7 @@ const Diary = () => {
               {/* Section Header */}
               <View style={styles.sectionHeader}>
                 <Typo size={8} fontWeight={"700"}>{meal}</Typo>
-                <TouchableOpacity onPress={() => router.push("/(modal)/diaryModal")}>
+                <TouchableOpacity onPress={() => router.push({pathname: "/(modal)/diaryModal", params: {meal}})}>
                   <Icons.PlusCircle weight="fill" color={colors.Secondary} size={28} />
                 </TouchableOpacity>
               </View>
@@ -81,6 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    paddingBottom: 10
   }
 })
