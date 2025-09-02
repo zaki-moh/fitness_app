@@ -12,36 +12,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [dailyCalories, setDailyCalories] = useState<number | null>(null);
   const router = useRouter();
 
-  // Listen for auth state changes
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser) {
-        // Set basic user info
-        setUser({
-          uid: firebaseUser.uid,
-          email: firebaseUser.email,
-          name: firebaseUser.displayName,
-        });
+useEffect(() => {
+  const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
+    if (firebaseUser) {
+      setUser({
+        uid: firebaseUser.uid,
+        email: firebaseUser.email,
+        name: firebaseUser.displayName,
+      });
 
-        // Fetch additional user data from Firestore
-        await updateUserData(firebaseUser.uid);
+      const calories = await updateUserData(firebaseUser.uid);
 
-        // Redirect based on whether dailyCalories is set
-        if (!dailyCalories) {
-          router.replace("/(auth)/setDailyCalories"); // first-time setup
-        } else {
-          router.replace("/(tabs)/Dashboard"); // normal login
-        }
+      if (!calories) {
+        router.replace("/(auth)/setDailyCalories");
       } else {
-        setUser(null);
-        router.replace("/(auth)/welcome");
+        router.replace("/(tabs)/Dashboard");
       }
-    });
+    } else {
+      setUser(null);
+      router.replace("/(auth)/welcome");
+    }
+  });
 
-    return () => unsub();
-  }, [dailyCalories]);
+  return () => unsub();
+}, []);
 
-  // Login function
   const login = async (email: string, password: string) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -54,7 +49,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Register function
   const register = async (email: string, password: string, name: string) => {
     try {
       const response = await createUserWithEmailAndPassword(auth, email, password);
@@ -73,27 +67,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // Fetch user data from Firestore
-  const updateUserData = async (uid: string) => {
-    try {
-      const docRef = doc(fireStore, "users", uid);
-      const docSnap = await getDoc(docRef);
+const updateUserData = async (uid: string): Promise<number | null> => {
+  try {
+    const docRef = doc(fireStore, "users", uid);
+    const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        const userData: UserType = {
-          uid: data?.uid || null,
-          email: data?.email || null,
-          name: data?.name || null,
-          image: data?.image || null,
-        };
-        setUser(userData);
-        setDailyCalories(data?.dailyCalories || null);
-      }
-    } catch (error: any) {
-      console.log("error fetching user data:", error);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      const userData: UserType = {
+        uid: data?.uid || null,
+        email: data?.email || null,
+        name: data?.name || null,
+        image: data?.image || null,
+      };
+      setUser(userData);
+
+      const calories = data?.dailyCalories || null;
+      setDailyCalories(calories);
+
+      return calories; 
     }
-  };
+  } catch (error: any) {
+    console.log("error fetching user data:", error);
+  }
+  return null;
+};
+
 
   const contextValue: AuthContextType = {
     user,

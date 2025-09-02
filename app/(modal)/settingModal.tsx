@@ -57,8 +57,9 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     header: {
-        marginTop: 40,
-        alignSelf: "center",
+        marginTop: 35,
+        alignSelf: "flex-start",
+        paddingLeft: 35
     },
     input: {
         marginTop: 20,

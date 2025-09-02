@@ -47,7 +47,7 @@ const DiaryModal = () => {
             section,
             id: Date.now().toString(),
         };
-        addMeal(newMealLog);
+        addMeal(newMealLog.section, Number(calories));
         decrementCalorieCount(Number(calorieInput));
         router.back();
     }

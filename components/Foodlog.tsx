@@ -14,24 +14,10 @@ const Foodlog = ({
     calorieAmount
 }: FoodLogProps) => {
 
-    const renderMealIcon = (mealType: string) => {
-    switch (mealType) {
-        case "Breakfast":
-            return <Icons.AppleLogoIcon color="#4CAF50" weight="fill" size={30} />;
-        case "Lunch":
-            return <Icons.PizzaIcon color="#E53935" weight="fill" size={30} />;
-        case "Dinner":
-            return <Icons.FishIcon color="#2196F3" weight="fill" size={30} />;
-        default:
-            return null;
-  }
-}
 
   return (
       <TouchableOpacity style={styles.container}>
-        {renderMealIcon(mealType)}
-        <Typo color={"white"} size={9} fontWeight={"bold"}>  {mealType}: </Typo>
-        <Typo fontWeight={"bold"} size={9} style={{paddingLeft: 195}}>{calorieAmount}</Typo>
+        <Typo fontWeight={"500"} size={7.5} style={{paddingLeft: 370}}>{calorieAmount}</Typo>
       </TouchableOpacity>
   )
 }
@@ -41,9 +27,9 @@ export default Foodlog
 const styles = StyleSheet.create({
     container: {
         justifyContent: "flex-start",
-        borderRadius: radius._3,
+        borderRadius: 25,
         borderCurve: "continuous",
-        height: verticalScale(22),
+        height: verticalScale(19),
         width: screenWidth,
         backgroundColor: colors.tabbar,
         flexDirection: "row",
