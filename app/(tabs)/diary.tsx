@@ -8,6 +8,7 @@ import { useRouter } from 'expo-router'
 import { useMealStore } from "../../store/mealStore";
 import Foodlog from '@/components/Foodlog'
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+
 const Diary = () => {
   const router = useRouter();
   const { calorieCount, mealLogs } = useMealStore();
