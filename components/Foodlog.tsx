@@ -8,37 +8,50 @@ import * as Icons from "phosphor-react-native"
 import { SwipeListView } from "react-native-swipe-list-view";
 import { PanGestureHandler, PanGestureHandlerGestureEvent, Pressable } from "react-native-gesture-handler";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Animated, { useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import Animated, { runOnJS, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import { useMealStore } from '@/store/mealStore'
+
 
 
 const screenWidth = Dimensions.get("window").width;
 
 const Foodlog = ({ 
+    meal,
     style,   
     mealType,
     calorieAmount
 }: FoodLogProps) => {
 
+    const { calorieCount, incrementCalorieCount, setCalorieCount, mealLogs } = useMealStore();
+
     const translateX = useSharedValue(0)
     const itemHeight = useSharedValue(verticalScale(19))
     const TRANSLATE_X_THRESHHOLD = -screenWidth *.30
-    //const marginVertical = useSharedValue(3)
+    const marginBottom = useSharedValue(3)
   
+    
+  const removeMeal = (id: string) => {
+    useMealStore.setState((state) => ({
+      mealLogs: state.mealLogs.filter((meal) => meal.id !== id)
+    }));
+  };
+
   const handleGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent> ({
     onActive: (event) => {
       translateX.value = event.translationX * .6;
     },
-    onEnd: (event) => {
-      const shouldBeDismissed = translateX.value < TRANSLATE_X_THRESHHOLD
-      if(shouldBeDismissed) {
-        translateX.value = withTiming(-screenWidth, { duration: 300 })
-        itemHeight.value = withTiming(0)
-        //marginVertical.value = withTiming(0)
+    onEnd: () => {
+        const shouldBeDismissed = translateX.value < TRANSLATE_X_THRESHHOLD;
+        if (shouldBeDismissed) {
+          translateX.value = withTiming(-screenWidth, { duration: 300 });
+          itemHeight.value = withTiming(0, {}, () => {
+            runOnJS(removeMeal)(meal.id);
+          });
+          marginBottom.value = withTiming(0);
+        } else {
+          translateX.value = withTiming(0);
+        }
       }
-      else {
-        translateX.value = withTiming(0);
-      }
-    } 
   })
 
   const rIconContainerStyle = useAnimatedStyle(() => {
@@ -52,7 +65,7 @@ const Foodlog = ({
       height: itemHeight.value,
       opacity: 1 + translateX.value / screenWidth, 
       transform: [{ translateX: translateX.value }],
-      //marginVertical: marginVertical.value
+      marginBottom: marginBottom.value,
     };
   });
 
@@ -62,13 +75,14 @@ const Foodlog = ({
       }]
   }))
 
+
   return (
       <GestureHandlerRootView style={{flex: 1}}>
         <Animated.View style={[styles.icon, rIconContainerStyle]}>
           <Icons.TrashIcon  color={colors.Accent} size={verticalScale(19) *.6}/>
         </Animated.View>
         <PanGestureHandler onGestureEvent={handleGesture}>
-          <Animated.View style={[{paddingBottom: 3}, rTaskContainerStyle]}>
+          <Animated.View style={[rTaskContainerStyle]}>
             <Pressable style={styles.container}>
               <Typo fontWeight={"500"} size={7.5} style={{paddingLeft: 370}}>{calorieAmount}</Typo>
             </Pressable>
@@ -91,7 +105,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         paddingHorizontal: 8,
-        paddingLeft: 15
+        paddingLeft: 15,
     },
     icon: {
       height: verticalScale(19),

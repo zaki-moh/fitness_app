@@ -13,6 +13,7 @@ type MealStore = {
   dailyCalories: number | null;
   setCalorieCount: (newCount: number) => void;
   decrementCalorieCount: (loss: number) => void;
+  incrementCalorieCount: (gain: number) => void;
   clearCalorieCount: () => void;
   mealLogs: MealLog[];
   addMeal: (section: MealLog["section"], calories: number) => void;
@@ -29,6 +30,8 @@ export const useMealStore = create<MealStore>()(
       setCalorieCount: (newCount) => set({ calorieCount: newCount }),
       decrementCalorieCount: (loss) =>
         set((state) => ({ calorieCount: state.calorieCount - loss })),
+      incrementCalorieCount: (gain) =>
+        set((state) => ({ calorieCount: state.calorieCount + gain })),
       clearCalorieCount: () => set({ calorieCount: 0 }),
 
       mealLogs: [],

@@ -75,8 +75,8 @@ const Diary = () => {
                 </View>
               </View>
               {mealLogs.filter((log) => log.section == meal).map((log, index) => (
-                <View key={log.id ?? index} style={{paddingBottom: 3}}>
-                  <Foodlog mealType={meal} calorieAmount={log.calories}/>
+                <View key={log.id ?? index} >
+                  <Foodlog meal={log} mealType={log.section} calorieAmount={log.calories}/>
                 </View>
               ))}
             </View>
