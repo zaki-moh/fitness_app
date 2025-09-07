@@ -8,12 +8,29 @@ import { useRouter } from 'expo-router'
 import { useMealStore } from "../../store/mealStore";
 import Foodlog from '@/components/Foodlog'
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import dayjs from 'dayjs';
+import { CaretLeftIcon } from 'phosphor-react-native';
+
 
 const Diary = () => {
   const router = useRouter();
   const { calorieCount, mealLogs } = useMealStore();
   
+
   const meals = ["Breakfast", "Lunch", "Dinner", "Snack"];
+  const [currentDate, setCurrentDate] = useState(dayjs());
+  const isToday = currentDate.isSame(dayjs(), "day")
+  const isYesterday = currentDate.isSame(dayjs().subtract(1, "day"), "day")
+  const isTomorrow = currentDate.isSame(dayjs().add(1, "day"), "day")
+
+
+  const goBack = () => {
+    setCurrentDate(prev => prev.subtract(1, "day"))
+  }
+
+  const goForward = () => {
+    setCurrentDate(prev => prev.add(1, "day"))
+  } 
 
   const mealIcons: Record<string, JSX.Element> = {
   Breakfast: <Icons.Coffee weight="fill" color="#FF9800" size={32} />,
@@ -34,6 +51,20 @@ const Diary = () => {
   return (
     <ScreenWrapper style={{ backgroundColor: colors.primary }}>
       <View style={styles.container}>
+        <View style={{justifyContent: "space-between", alignItems: "center", flexDirection: "row", marginHorizontal: 70}}>
+          <TouchableOpacity onPress={goBack}>
+            <Icons.CaretLeftIcon size={28} color='white' weight="bold"/>
+          </TouchableOpacity>
+          <Typo size={9} fontWeight={"500"}>
+            {isToday && currentDate.format("MMMM D, YYYY") ? "Today" : isTomorrow ? "Tomorrow" : isYesterday ? "Yesterday" : currentDate.format("MMMM D, YYYY")}
+            </Typo>
+          <TouchableOpacity onPress={goForward}>
+            <Icons.CaretRightIcon size={28} color='white' weight="bold"/>
+          </TouchableOpacity>
+        </View>
+
+
+
         <View style={styles.calorieCount}>
         <AnimatedCircularProgress
           size={220}

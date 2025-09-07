@@ -17,11 +17,15 @@ const screenWidth = Dimensions.get("window").width;
 
 const Foodlog = ({ 
     meal,
-    style,   
     mealType,
     calorieAmount
 }: FoodLogProps) => {
 
+    type MealLog = {
+      calories: number;
+      section: "Breakfast" | "Lunch" | "Dinner" | "Snack";
+      id: string;
+    };
     const { calorieCount, incrementCalorieCount, setCalorieCount, mealLogs } = useMealStore();
 
     const translateX = useSharedValue(0)
@@ -30,9 +34,10 @@ const Foodlog = ({
     const marginBottom = useSharedValue(3)
   
     
-  const removeMeal = (id: string) => {
+  const removeMeal = (meal: MealLog) => {
+    incrementCalorieCount(meal.calories)
     useMealStore.setState((state) => ({
-      mealLogs: state.mealLogs.filter((meal) => meal.id !== id)
+      mealLogs: state.mealLogs.filter((m) => m.id !== meal.id)
     }));
   };
 
@@ -45,7 +50,7 @@ const Foodlog = ({
         if (shouldBeDismissed) {
           translateX.value = withTiming(-screenWidth, { duration: 300 });
           itemHeight.value = withTiming(0, {}, () => {
-            runOnJS(removeMeal)(meal.id);
+            runOnJS(removeMeal)(meal);
           });
           marginBottom.value = withTiming(0);
         } else {
@@ -84,7 +89,7 @@ const Foodlog = ({
         <PanGestureHandler onGestureEvent={handleGesture}>
           <Animated.View style={[rTaskContainerStyle]}>
             <Pressable style={styles.container}>
-              <Typo fontWeight={"500"} size={7.5} style={{paddingLeft: 370}}>{calorieAmount}</Typo>
+              <Typo fontWeight={"500"} size={7.5} style={{flex: 1, textAlign: 'right', marginRight: 6}}>{calorieAmount}</Typo>
             </Pressable>
           </Animated.View>
         </PanGestureHandler>

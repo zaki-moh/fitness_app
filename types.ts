@@ -111,3 +111,9 @@ export type CalorieType = {
   calories: number | null;
 };
 
+export type FoodLogProps = {
+  meal: MealLog;  
+  mealType: MealLog["section"];
+  calorieAmount: number;
+};
+

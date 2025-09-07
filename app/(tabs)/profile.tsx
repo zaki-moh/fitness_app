@@ -65,7 +65,6 @@ const Profile = () => {
           />
         ),
         bgColor: "#E53935",
-        routeName: "(modal)/profileModal"
       },
   ]
 
