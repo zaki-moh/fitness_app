@@ -53,7 +53,7 @@ const Profile = () => {
           />
         ),
         bgColor: "rgba(85, 85, 85, 1)",
-        routeName: "(modal)/profileModal"
+        routeName: "(modal)/privacyModal"
       },
       {
         title: "Logout",

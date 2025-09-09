@@ -15,6 +15,9 @@ const StackLayout = () => {
     <Stack.Screen name="(modal)/settingModal" 
     options = {{presentation: "modal"}}
     />
+    <Stack.Screen name="(modal)/privacyModal" 
+    options = {{presentation: "modal"}}
+    />
   </Stack>;
 };
 
