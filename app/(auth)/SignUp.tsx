@@ -101,7 +101,7 @@ const SignUp = () => {
                     <Typo size={10} fontWeight={"bold"} color={colors.primary}> 
                         Sign Up
                     </Typo>
-            </Button>
+                </Button>
             <View style={{paddingTop:20, flexDirection: 'row'}}>
                 <Typo size={6}>Already have an account?</Typo>
                 <Pressable onPress={() => router.push("/(auth)/SignIn")}> 
